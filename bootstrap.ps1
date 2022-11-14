@@ -1,28 +1,30 @@
+#Requires -RunAsAdministrator
+
 echo "Bootstrapping system"
 
 echo "Bootstrapping windows system"
-
-echo "Setup SSH config"
-echo "TODO"
 
 echo "Installing fonts"
 iwr -outf C:\Users\max\install-nerdfonts.ps1 https://gist.githubusercontent.com/daretodave/bd08f981ea51240053cfcf073272de25/raw/4ab599950e8e323f21c8c261bb25b210f89bcc55/install-nerdfonts.ps1
 cd $HOME\max
 .\install-nerdfonts.ps1
 
+echo "Setup OpenSSH config"
+# Windows 10 should have openssh by default
+# I track .ssh/config in my dotfiles, should be good by default
+ssh -T MaxKiv
+ssh -T Max-Kivits
+
 echo "Downloading chocolatey"
 Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
-echo "TODO"
-# apt
-#sudo apt update && sudo apt upgrade -y
-# fd
-#sudo apt install fd-find
-# ripgrep
-#sudo apt-get install ripgrep
+refreshenv
+choco -?
+
+choco install make, llvm, fd, fzf, ripgrep, cmake -y
 
 echo "Seting up Tmux"
 # tmux
-echo "TODO"
+echo "TODO, this should be fun"
 #git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 #tmux source ~/.tmux.conf
 
@@ -32,20 +34,18 @@ git clone --bare git@github.com:MaxKiv/dotfiles.git $HOME/.dotfiles
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 dotfiles checkout
 
-# fzf
-echo "Installing fzf"
-git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf
-$HOME/.fzf/install.ps1
+# # fzf
+# echo "Installing fzf"
+# git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf
+# $HOME/.fzf/install.ps1
 
 # neovim
 echo "Installing Neovim"
-echo "TODO"
-#sudo add-apt-repository ppa:neovim-ppa/unstable
-#sudo apt update
-#sudo apt-get install neovim
+choco install neovim --pre -y
 
-# TODO path + alacritty.yml & nvim config symlink
-# Symlink dotfiles
+# Symlink alacritty.yml
 New-Item -ItemType SymbolicLink -Path "C:\Users\max\AppData\Roaming\alacritty\alacritty.yml" -Target "C:\Users\max\.config\alacritty\alacritty.yml"
+# Symlink neovim config
 New-Item -ItemType SymbolicLink -Path "C:\Users\max\AppData\Local\nvim" -Target "C:\Users\max\.config\nvim"
 
+echo "Done, you should probably reboot..."
