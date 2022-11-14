@@ -1,6 +1,6 @@
 echo "Bootstrapping system"
 
-echo "Detected Ubuntu"
+echo "Boostrapping Ubuntu system"
 
 echo "Downloading apt packages"
 # apt
