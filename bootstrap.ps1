@@ -1,12 +1,14 @@
 #Requires -RunAsAdministrator
 
+$User = "max"
+
 echo "Bootstrapping system"
 
 echo "Bootstrapping windows system"
 
 echo "Installing fonts"
-iwr -outf C:\Users\max\install-nerdfonts.ps1 https://gist.githubusercontent.com/daretodave/bd08f981ea51240053cfcf073272de25/raw/4ab599950e8e323f21c8c261bb25b210f89bcc55/install-nerdfonts.ps1
-cd $HOME\max
+iwr -outf C:\Users\$User\install-nerdfonts.ps1 https://gist.githubusercontent.com/daretodave/bd08f981ea51240053cfcf073272de25/raw/4ab599950e8e323f21c8c261bb25b210f89bcc55/install-nerdfonts.ps1
+cd $HOME\
 .\install-nerdfonts.ps1
 
 echo "Setup OpenSSH config"
@@ -44,8 +46,8 @@ echo "Installing Neovim"
 choco install neovim --pre -y
 
 # Symlink alacritty.yml
-New-Item -ItemType SymbolicLink -Path "C:\Users\max\AppData\Roaming\alacritty\alacritty.yml" -Target "C:\Users\max\.config\alacritty\alacritty.yml"
+New-Item -ItemType SymbolicLink -Path "C:\Users\$User\AppData\Roaming\alacritty\alacritty.yml" -Target "C:\Users\$User\.config\alacritty\alacritty.yml"
 # Symlink neovim config
-New-Item -ItemType SymbolicLink -Path "C:\Users\max\AppData\Local\nvim" -Target "C:\Users\max\.config\nvim"
+New-Item -ItemType SymbolicLink -Path "C:\Users\$User\AppData\Local\nvim" -Target "C:\Users\$User\.config\nvim"
 
 echo "Done, you should probably reboot..."
