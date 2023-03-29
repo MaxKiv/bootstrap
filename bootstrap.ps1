@@ -22,7 +22,7 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManage
 refreshenv
 choco -?
 
-choco install make, llvm, fd, fzf, ripgrep, cmake -y
+choco install make, llvm, fd, fzf, ripgrep, glow, cmake -y
 
 echo "Seting up Tmux"
 # tmux
@@ -49,5 +49,9 @@ choco install neovim --pre -y
 New-Item -ItemType SymbolicLink -Path "C:\Users\$User\AppData\Roaming\alacritty\alacritty.yml" -Target "C:\Users\$User\.config\alacritty\alacritty.yml"
 # Symlink neovim config
 New-Item -ItemType SymbolicLink -Path "C:\Users\$User\AppData\Local\nvim" -Target "C:\Users\$User\.config\nvim"
+
+# Symlink glow binary
+New-Item -ItemType SymbolicLink -Target "C:/ProgramData/chocolatey/bin/glow.exe " -Path "C:\Users\$User\.local\bin\glow.exe"
+
 
 echo "Done, you should probably reboot..."
