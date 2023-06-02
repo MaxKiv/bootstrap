@@ -54,6 +54,6 @@ New-Item -ItemType SymbolicLink -Path "C:\Users\$User\AppData\Local\nvim" -Targe
 New-Item -ItemType SymbolicLink -Target "C:/ProgramData/chocolatey/bin/glow.exe " -Path "C:\Users\$User\.local\bin\glow.exe"
 
 # Alacritty theme
-git clone https://github.com/catppuccin/alacritty.git ~/.config/alacritty/catppuccin
+git clone https://github.com/catppuccin/alacritty.git $HOME/.config/alacritty/catppuccin
 
 echo "Done, you should probably reboot..."
