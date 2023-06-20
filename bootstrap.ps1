@@ -1,6 +1,6 @@
 #Requires -RunAsAdministrator
 
-$User = "max"
+$User = [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
 
 echo "Bootstrapping system"
 
